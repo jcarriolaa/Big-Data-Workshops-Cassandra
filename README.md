@@ -105,9 +105,19 @@
 
 ---
 
-### **Parte 6: Creación de Tablas y Datos**
+### **Parte 6: Creación de Keyspace y Tablas**
 
-1. **Crear una tabla para simular clics en una página web:**
+1. **Crear un keyspace con replicación de factor 2:**
+   ```sql
+   CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2};
+   ```
+
+2. **Usar el keyspace recién creado:**
+   ```sql
+   USE workshop;
+   ```
+
+3. **Crear una tabla para simular clics en una página web:**
    ```sql
    CREATE TABLE event_clicks (
      user_id UUID,
@@ -117,7 +127,7 @@
    );
    ```
 
-2. **Insertar 10 registros en event_clicks:**
+4. **Insertar 10 registros en event_clicks:**
    ```sql
    INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'homepage', toTimestamp(now()));
    INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'about', toTimestamp(now()));
@@ -131,7 +141,7 @@
    INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'pricing', toTimestamp(now()));
    ```
 
-3. **Crear una tabla con acumulador:**
+5. **Crear una tabla con acumulador:**
    ```sql
    CREATE TABLE page_clicks_counter (
      page TEXT PRIMARY KEY,
@@ -139,7 +149,7 @@
    );
    ```
 
-4. **Insertar 10 registros acumulativos en page_clicks_counter:**
+6. **Insertar 10 registros acumulativos en page_clicks_counter:**
    ```sql
    UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'homepage';
    UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'about';
