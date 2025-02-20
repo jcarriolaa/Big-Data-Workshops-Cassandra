@@ -282,3 +282,17 @@
    nodetool cleanup
    ```
 
+---
+
+#### **Siguientes pasos**
+En grupo, hacer la siguiente pruebas:
+1. Una persona levantar un Cluster con DC1
+2. Una Persona hacer mismo Cluster con DC2
+3. Una Persona hacer el Streaming hacia Cluster 
+4. Probar bajar un nodo de uno o dos datacenters y revisar que siga funcionando el flujo de streaming
+5. Leer documento de Data Modeling para explicar y presentar un Modelo de datos.
+
+
+
+
+
