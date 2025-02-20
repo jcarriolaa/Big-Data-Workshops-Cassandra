@@ -9,148 +9,127 @@
 
 ---
 
-### **Parte 1: Configuración Inicial del Primer Nodo**
+### **Anexo: Comandos Básicos de cqlsh y nodetool**
 
-1. **Instalación de Cassandra (Primer Nodo)**  
-   Usaremos **Docker** para simplificar el proceso:
-   ```bash
-   docker network create cassandra_net
-   docker run --name cassandra1 --network cassandra_net -d \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="" \
-     -p 9042:9042 \
-     cassandra:4.0
-   ```
-   **Verifica que el nodo esté funcionando:**
-   ```bash
-   docker exec -it cassandra1 nodetool status
-   ```
+#### **Comandos en cqlsh**
 
----
-
-### **Parte 2: Agregar el Segundo Nodo al Clúster**
-
-1. **Levantar el segundo nodo y conectarlo al clúster:**
-   ```bash
-   docker run --name cassandra2 --network cassandra_net -d \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="cassandra1" \
-     -p 9043:9042 \
-     cassandra:4.0
-   ```
-
-2. **Verificar que el segundo nodo se haya unido:**
-   ```bash
-   docker exec -it cassandra1 nodetool status
-   ```
-
----
-
-### **Parte 3: Agregar el Tercer Nodo**
-
-1. **Levantar el tercer nodo:**
-   ```bash
-   docker run --name cassandra3 --network cassandra_net -d \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="cassandra1" \
-     -p 9044:9042 \
-     cassandra:4.0
-   ```
-
-2. **Verificar que el tercer nodo se haya unido al clúster:**
-   ```bash
-   docker exec -it cassandra1 nodetool status
-   ```
-
----
-
-### **Parte 4: Crear un Segundo Data Center (2 nodos)**
-
-1. **Levantar el cuarto y quinto nodo en un nuevo Data Center:**
-   ```bash
-   docker run --name cassandra4 --network cassandra_net -d \
-     -e CASSANDRA_DC="datacenter2" \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="cassandra1" \
-     -p 9045:9042 \
-     cassandra:4.0
-
-   docker run --name cassandra5 --network cassandra_net -d \
-     -e CASSANDRA_DC="datacenter2" \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="cassandra1" \
-     -p 9046:9042 \
-     cassandra:4.0
-   ```
-
----
-
-### **Parte 5: Crear una Tabla para Simular Clicks en una Página Web**
-
-1. **Conectar a Cassandra**
+1. **Conectar a cqlsh**
    ```bash
    docker exec -it cassandra1 cqlsh
    ```
 
-2. **Crear la Keyspace y la Tabla event_clicks**
+2. **Listar keyspaces disponibles**
    ```sql
-   CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2};
+   DESCRIBE KEYSPACES;
+   ```
+
+3. **Ver detalles de un keyspace específico**
+   ```sql
+   DESCRIBE KEYSPACE workshop;
+   ```
+
+4. **Listar todas las tablas dentro de un keyspace**
+   ```sql
    USE workshop;
-
-   CREATE TABLE event_clicks (
-     user_id UUID,
-     page TEXT,
-     click_time TIMESTAMP,
-     PRIMARY KEY (user_id, click_time)
-   );
+   DESCRIBE TABLES;
    ```
 
-3. **Insertar Datos en event_clicks**
+5. **Ver la estructura de una tabla específica**
    ```sql
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'homepage', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'about', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'contact', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'services', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'blog', toTimestamp(now()));
+   DESCRIBE TABLE event_clicks;
+   ```
+
+6. **Consultar los primeros 10 registros de una tabla**
+   ```sql
+   SELECT * FROM event_clicks LIMIT 10;
+   ```
+
+7. **Eliminar un registro de una tabla**
+   ```sql
+   DELETE FROM event_clicks WHERE user_id = <UUID> AND click_time = '<TIMESTAMP>';
+   ```
+
+8. **Eliminar todos los registros de una tabla sin eliminar la estructura**
+   ```sql
+   TRUNCATE event_clicks;
    ```
 
 ---
 
-### **Parte 6: Crear una Tabla con Acumulador**
+#### **Comandos de nodetool**
 
-1. **Crear la Tabla con un Contador**
-   ```sql
-   CREATE TABLE page_clicks_counter (
-     page TEXT PRIMARY KEY,
-     click_count COUNTER
-   );
+1. **Ver el estado de los nodos del clúster**
+   ```bash
+   nodetool status
    ```
 
-2. **Insertar Datos en la Tabla de Contador**
-   ```sql
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'homepage';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'about';
+2. **Ver las propiedades de un nodo dentro del clúster**
+   ```bash
+   nodetool info
+   ```
+
+3. **Ver la distribución de datos en el clúster**
+   ```bash
+   nodetool ring
+   ```
+
+4. **Reparar inconsistencias de datos en un nodo**
+   ```bash
+   nodetool repair
+   ```
+
+5. **Forzar la compactación de datos en un nodo**
+   ```bash
+   nodetool compact
+   ```
+
+6. **Limpiar los datos de nodos removidos**
+   ```bash
+   nodetool cleanup
+   ```
+
+7. **Ver las métricas de uso de memoria y carga del nodo**
+   ```bash
+   nodetool gcstats
    ```
 
 ---
 
-### **Parte 7: Configuración de Prometheus y Grafana**
+#### **Agregar y quitar nodos en el clúster**
 
-1. **Levantar Prometheus:**  
+1. **Agregar un nuevo nodo al clúster:**
+   - Editar el archivo de configuración `cassandra.yaml` en el nuevo nodo y establecer:
+     ```yaml
+     - seeds: "IP_DEL_NODO_EXISTENTE"
+     ```
+   - Iniciar el nuevo nodo con:
+     ```bash
+     docker run --name cassandra_new --network cassandra_net -d \
+       -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
+       -e CASSANDRA_SEEDS="IP_DEL_NODO_EXISTENTE" \
+       -p 9047:9042 \
+       cassandra:4.0
+     ```
+   - Verificar que se haya agregado correctamente:
+     ```bash
+     nodetool status
+     ```
+
+2. **Quitar un nodo del clúster:**
+   - Identificar el nodo que se quiere quitar con `nodetool status`.
+   - Ejecutar el comando para deshabilitar el nodo:
+     ```bash
+     nodetool decommission
+     ```
+   - Si el nodo está fallando y no puede ser deshabilitado correctamente:
+     ```bash
+     nodetool removenode <ID_DEL_NODO>
+     ```
+
+3. **Reequilibrar el clúster después de quitar un nodo:**
    ```bash
-   docker run --name prometheus -d -p 9090:9090 \
-     -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml \
-     prom/prometheus
+   nodetool cleanup
    ```
-
-2. **Levantar Grafana:**
-   ```bash
-   docker run --name grafana -d -p 3000:3000 grafana/grafana
-   ```
-
-3. **Configurar un Dashboard en Grafana:**
-   - Accede a `http://localhost:3000`
-   - Crea un nuevo dashboard e integra Prometheus como fuente de datos.
 
 ---
 
