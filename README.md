@@ -243,6 +243,10 @@
    ```bash
    nodetool ring
    ```
+7. **Ver la capacidad de disco en el clúster**
+   ```bash
+   docker exec -it cassandra1 nodetool status | awk '/UN/ {sum += $3} END {print "Total Cluster Storage:", sum, "GB"}'
+   ```   
 
 ---
 
