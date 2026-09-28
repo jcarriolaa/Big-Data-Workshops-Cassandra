@@ -1,0 +1,81 @@
+conductor_id,nombre,ciudad,vehiculo,placa
+co01,Camila Reyes,San José,Toyota Yaris,P371DBF
+co02,Carlos Rivera,San José,Nissan Versa,P234BNB
+co03,María Méndez,Guatemala,Hyundai Accent,P535LCD
+co04,Tomás López,Tegucigalpa,Nissan Versa,P587CKD
+co05,Camila Flores,Tegucigalpa,Kia Rio,P874GHM
+co06,Mateo Cruz,Tegucigalpa,Hyundai Accent,P515HLK
+co07,Pablo Juárez,San José,Mazda 2,P298HFG
+co08,María Castillo,Guatemala,Toyota Yaris,P757DMJ
+co09,Ana Rivera,Managua,Mazda 2,P862LBJ
+co10,Diego Castillo,Managua,Mazda 2,P676MGL
+co11,Ana Flores,Tegucigalpa,Kia Rio,P662NHJ
+co12,Carlos Barrios,San Salvador,Kia Rio,P335NHD
+co13,Andrés Reyes,San José,Nissan Versa,P477GBK
+co14,Tomás Herrera,Guatemala,Hyundai Accent,P849DFN
+co15,Tomás Herrera,Tegucigalpa,Hyundai Accent,P500HKF
+co16,Jorge López,San José,Nissan Versa,P320LBJ
+co17,Ana Cruz,San José,Kia Rio,P209JGM
+co18,Jorge Reyes,Guatemala,Hyundai Accent,P766CCG
+co19,María Pérez,San Salvador,Kia Rio,P547KLD
+co20,Ana García,San José,Kia Rio,P792HCL
+co21,Javier Reyes,San José,Toyota Yaris,P870NGF
+co22,Carlos Flores,Tegucigalpa,Toyota Yaris,P649FMC
+co23,Daniela Méndez,Guatemala,Hyundai Accent,P578CCB
+co24,Luis Morales,San José,Mazda 2,P806JHB
+co25,Javier Morales,Guatemala,Kia Rio,P465DHN
+co26,Lucía López,Tegucigalpa,Hyundai Accent,P284DDH
+co27,Camila Ramírez,Tegucigalpa,Kia Rio,P484FCL
+co28,Lucía Cruz,Guatemala,Toyota Yaris,P757JFF
+co29,Pablo Cruz,San José,Kia Rio,P264JJD
+co30,Isabel Méndez,San José,Hyundai Accent,P738NJM
+co31,Isabel Morales,Tegucigalpa,Mazda 2,P392HMB
+co32,Diego Cruz,San José,Nissan Versa,P507DFH
+co33,Jorge Juárez,Tegucigalpa,Toyota Yaris,P941NGD
+co34,Sofía Méndez,Tegucigalpa,Kia Rio,P463GLH
+co35,Mateo Herrera,San José,Mazda 2,P524HMH
+co36,Andrés Castillo,San José,Hyundai Accent,P806KCN
+co37,Andrés Cruz,Tegucigalpa,Hyundai Accent,P694GGC
+co38,Sofía Estrada,San Salvador,Mazda 2,P437BND
+co39,Carlos Flores,San José,Mazda 2,P910FKK
+co40,Sofía Cruz,Managua,Nissan Versa,P209MNG
+co41,Camila Estrada,Managua,Mazda 2,P333HGJ
+co42,Lucía Castillo,San José,Mazda 2,P493FNG
+co43,Diego Flores,San Salvador,Hyundai Accent,P688KDG
+co44,Diego Pérez,Guatemala,Nissan Versa,P916NHC
+co45,Andrés Castillo,San José,Nissan Versa,P320NFL
+co46,Isabel Juárez,San Salvador,Hyundai Accent,P824KDJ
+co47,Lucía Rivera,Managua,Kia Rio,P944NCH
+co48,Isabel Flores,Managua,Hyundai Accent,P539MKM
+co49,Lucía Pérez,San Salvador,Nissan Versa,P123HDH
+co50,Luis Estrada,San José,Kia Rio,P503HDC
+co51,Carlos Rivera,San Salvador,Toyota Yaris,P522FLB
+co52,Sofía Estrada,Tegucigalpa,Hyundai Accent,P218GGH
+co53,Tomás Ramírez,Managua,Mazda 2,P659FMJ
+co54,Lucía Cruz,Managua,Toyota Yaris,P102MJJ
+co55,Jorge García,San José,Kia Rio,P537NGD
+co56,Valeria Juárez,San José,Hyundai Accent,P733CMJ
+co57,Isabel Estrada,Tegucigalpa,Toyota Yaris,P982KMJ
+co58,Tomás Juárez,San Salvador,Kia Rio,P281NLB
+co59,Tomás Reyes,Managua,Kia Rio,P634FGF
+co60,Javier Herrera,Tegucigalpa,Nissan Versa,P378BJH
+co61,Luis Méndez,Guatemala,Toyota Yaris,P678DNK
+co62,Carlos Morales,San Salvador,Toyota Yaris,P649MJC
+co63,Ana López,Managua,Nissan Versa,P166CNB
+co64,Luis Castillo,San José,Hyundai Accent,P557KGM
+co65,Lucía Ortiz,Guatemala,Hyundai Accent,P842KKH
+co66,Pablo Reyes,San Salvador,Kia Rio,P323LKC
+co67,Lucía Flores,San Salvador,Nissan Versa,P585FND
+co68,Daniela Pérez,San Salvador,Mazda 2,P237BKB
+co69,Pablo Pérez,San José,Toyota Yaris,P722JDB
+co70,Luis Estrada,Tegucigalpa,Nissan Versa,P161HKK
+co71,Isabel Cruz,San José,Mazda 2,P141JBN
+co72,Daniela Castillo,Guatemala,Hyundai Accent,P916NBK
+co73,Isabel Méndez,Managua,Kia Rio,P777CFJ
+co74,Isabel Barrios,San Salvador,Hyundai Accent,P689DHG
+co75,Pablo Cruz,San José,Toyota Yaris,P507HLJ
+co76,Camila Herrera,Tegucigalpa,Nissan Versa,P634FMM
+co77,Andrés Pérez,San Salvador,Hyundai Accent,P804KGB
+co78,Paula Ortiz,San José,Nissan Versa,P633BDF
+co79,Valeria Barrios,Guatemala,Mazda 2,P294KNJ
+co80,Luis Reyes,San Salvador,Mazda 2,P213MKH

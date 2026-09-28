@@ -1,0 +1,301 @@
+pasajero_id,nombre,ciudad,calificacion
+pa001,Daniela Estrada,San José,4.81
+pa002,Lucía Ortiz,Guatemala,4.14
+pa003,Isabel García,Managua,3.99
+pa004,Andrés Estrada,Managua,4.63
+pa005,Paula Ramírez,San José,3.99
+pa006,María Juárez,San José,4.62
+pa007,Luis Flores,Tegucigalpa,4.17
+pa008,Tomás Méndez,Guatemala,4.9
+pa009,Carlos Morales,Guatemala,4.07
+pa010,Ana Herrera,San Salvador,4.87
+pa011,Diego Reyes,San Salvador,4.82
+pa012,Lucía Juárez,San Salvador,3.96
+pa013,Jorge Ramírez,Tegucigalpa,3.94
+pa014,Isabel Flores,Tegucigalpa,4.65
+pa015,Lucía Ortiz,San José,4.28
+pa016,Jorge Reyes,San José,3.74
+pa017,Javier Reyes,Tegucigalpa,3.67
+pa018,Lucía Cruz,Guatemala,3.62
+pa019,Paula Ortiz,Managua,4.97
+pa020,Diego Rivera,San Salvador,3.88
+pa021,Tomás Rivera,San Salvador,4.34
+pa022,Javier Barrios,San Salvador,4.16
+pa023,Ana Herrera,Tegucigalpa,4.59
+pa024,Isabel Barrios,Managua,3.7
+pa025,Tomás Morales,San Salvador,4.35
+pa026,Carlos López,Guatemala,4.71
+pa027,Sofía Estrada,San José,3.51
+pa028,Lucía Pérez,San Salvador,4.12
+pa029,Luis Méndez,San José,4.25
+pa030,Andrés Estrada,Managua,3.76
+pa031,Andrés Barrios,San José,4.43
+pa032,Andrés Pérez,Managua,3.81
+pa033,Luis Juárez,Guatemala,4.47
+pa034,Paula Ortiz,San José,4.35
+pa035,Tomás Reyes,Tegucigalpa,3.73
+pa036,Lucía Morales,Managua,4.33
+pa037,Javier Barrios,San José,4.08
+pa038,Javier Morales,Tegucigalpa,4.73
+pa039,Andrés Rivera,San José,4.32
+pa040,Diego Méndez,San Salvador,4.05
+pa041,Mateo Barrios,San Salvador,3.58
+pa042,Javier Ramírez,San José,4.01
+pa043,Andrés Ramírez,San Salvador,3.62
+pa044,Jorge Méndez,San Salvador,4.72
+pa045,Pablo Ramírez,San Salvador,4.88
+pa046,Isabel López,Guatemala,4.54
+pa047,Pablo Cruz,San Salvador,3.71
+pa048,María Ortiz,Guatemala,3.53
+pa049,Pablo Ortiz,Tegucigalpa,3.71
+pa050,Sofía Ortiz,Guatemala,4.49
+pa051,Isabel Reyes,San Salvador,4.91
+pa052,Valeria Juárez,Tegucigalpa,3.76
+pa053,Lucía Méndez,San Salvador,4.12
+pa054,Jorge Barrios,San Salvador,3.93
+pa055,Ana Barrios,San Salvador,4.87
+pa056,Javier López,Tegucigalpa,4.01
+pa057,Lucía Pérez,Managua,4.5
+pa058,Andrés Cruz,Tegucigalpa,3.8
+pa059,Pablo Herrera,San José,4.39
+pa060,Daniela Reyes,San José,4.74
+pa061,Daniela Méndez,Managua,4.3
+pa062,Sofía Pérez,Tegucigalpa,3.83
+pa063,Andrés Herrera,Guatemala,4.62
+pa064,Mateo Méndez,San José,3.86
+pa065,Sofía Pérez,San José,3.61
+pa066,Luis Cruz,San José,4.02
+pa067,Pablo Ramírez,Tegucigalpa,4.68
+pa068,Jorge Flores,Guatemala,3.8
+pa069,Javier Juárez,Managua,3.8
+pa070,Camila Castillo,San Salvador,4.04
+pa071,Isabel López,Managua,3.73
+pa072,Diego Castillo,Managua,5.0
+pa073,Andrés Juárez,San José,4.32
+pa074,Valeria Reyes,Tegucigalpa,4.51
+pa075,Valeria Castillo,Guatemala,4.0
+pa076,Jorge Ramírez,Tegucigalpa,4.23
+pa077,Luis Barrios,Guatemala,4.94
+pa078,Paula Juárez,San José,4.21
+pa079,Andrés Castillo,San José,4.65
+pa080,María Reyes,Guatemala,4.4
+pa081,Valeria Juárez,Guatemala,4.93
+pa082,Jorge Herrera,San Salvador,3.85
+pa083,Diego Pérez,Tegucigalpa,4.79
+pa084,Ana Pérez,Guatemala,4.32
+pa085,Daniela Rivera,San José,4.27
+pa086,Sofía Juárez,Tegucigalpa,3.51
+pa087,Javier Juárez,San Salvador,4.08
+pa088,Sofía Castillo,Guatemala,4.27
+pa089,Mateo Herrera,Guatemala,3.99
+pa090,Javier Flores,Managua,4.03
+pa091,Pablo Herrera,Tegucigalpa,4.59
+pa092,María Méndez,Managua,3.68
+pa093,Jorge Ortiz,San Salvador,3.65
+pa094,María Pérez,San José,4.77
+pa095,Daniela Barrios,Guatemala,4.16
+pa096,Pablo Flores,Guatemala,4.04
+pa097,Ana López,Guatemala,4.41
+pa098,Daniela Castillo,Tegucigalpa,4.21
+pa099,Pablo Estrada,San José,4.43
+pa100,Diego Estrada,Guatemala,4.13
+pa101,María Méndez,San Salvador,4.04
+pa102,Isabel Ortiz,Tegucigalpa,4.37
+pa103,Jorge Herrera,San José,4.88
+pa104,Camila Herrera,San José,4.58
+pa105,Diego Pérez,Tegucigalpa,4.39
+pa106,Andrés García,Guatemala,4.67
+pa107,Lucía Reyes,San José,4.98
+pa108,Andrés Ortiz,Guatemala,3.75
+pa109,Pablo Flores,Managua,4.88
+pa110,Carlos Estrada,San José,4.99
+pa111,María Juárez,San José,4.09
+pa112,Luis Méndez,San José,4.5
+pa113,Tomás López,Managua,4.37
+pa114,Daniela Ortiz,Tegucigalpa,3.64
+pa115,Daniela López,Guatemala,4.4
+pa116,Javier Juárez,Managua,4.35
+pa117,Ana Estrada,Managua,4.63
+pa118,Isabel Herrera,San José,4.54
+pa119,Diego Estrada,Guatemala,4.88
+pa120,Mateo García,San Salvador,4.81
+pa121,Pablo Cruz,Tegucigalpa,4.57
+pa122,Valeria Ramírez,Tegucigalpa,3.81
+pa123,Jorge Herrera,San José,4.13
+pa124,Sofía Herrera,Managua,4.09
+pa125,Mateo Reyes,San Salvador,4.67
+pa126,Diego Morales,Tegucigalpa,4.99
+pa127,Camila Rivera,San Salvador,4.27
+pa128,Lucía Herrera,Tegucigalpa,4.41
+pa129,Andrés Méndez,Guatemala,4.89
+pa130,Paula Herrera,Guatemala,4.95
+pa131,Javier Juárez,Guatemala,3.96
+pa132,Sofía Juárez,Managua,4.25
+pa133,Javier García,Guatemala,4.65
+pa134,Javier Méndez,Managua,4.38
+pa135,Isabel Méndez,Tegucigalpa,4.77
+pa136,Pablo Rivera,San Salvador,4.2
+pa137,Lucía López,Guatemala,3.68
+pa138,Diego López,Managua,4.2
+pa139,Lucía Méndez,San Salvador,4.84
+pa140,Sofía Morales,San Salvador,4.66
+pa141,Andrés Flores,San José,4.6
+pa142,Javier Estrada,San Salvador,3.55
+pa143,Jorge Morales,San Salvador,3.79
+pa144,Daniela Flores,San Salvador,3.88
+pa145,Luis Pérez,Tegucigalpa,4.8
+pa146,Diego Ortiz,San José,4.06
+pa147,Paula Flores,San José,4.33
+pa148,Paula Méndez,Guatemala,4.67
+pa149,Camila Reyes,Guatemala,3.53
+pa150,Luis Reyes,San José,4.62
+pa151,Pablo García,San José,4.09
+pa152,Tomás López,Guatemala,4.66
+pa153,Andrés López,San Salvador,3.65
+pa154,Valeria Rivera,San José,4.23
+pa155,Valeria Juárez,San José,4.32
+pa156,Mateo Estrada,Tegucigalpa,4.12
+pa157,Mateo Barrios,Managua,3.69
+pa158,Diego Cruz,San Salvador,4.37
+pa159,Paula Cruz,Guatemala,3.68
+pa160,Camila Cruz,Managua,4.27
+pa161,Valeria Pérez,San José,3.92
+pa162,Luis Rivera,San Salvador,4.94
+pa163,Paula Rivera,Managua,4.4
+pa164,Ana Morales,Managua,3.8
+pa165,Javier Castillo,San Salvador,3.93
+pa166,Mateo Barrios,San José,4.31
+pa167,Ana Herrera,Tegucigalpa,4.77
+pa168,Pablo García,Tegucigalpa,3.99
+pa169,Javier García,Tegucigalpa,4.93
+pa170,Isabel Castillo,San José,4.0
+pa171,Camila Morales,San Salvador,4.92
+pa172,Ana Méndez,Managua,4.95
+pa173,Mateo Flores,San José,4.53
+pa174,Jorge Rivera,Managua,4.35
+pa175,Jorge Castillo,Tegucigalpa,4.59
+pa176,Luis Rivera,San Salvador,3.85
+pa177,Diego Rivera,San José,4.35
+pa178,Diego Flores,Guatemala,4.51
+pa179,Daniela Juárez,San José,3.86
+pa180,Javier Ramírez,San José,4.57
+pa181,Mateo Méndez,Managua,4.11
+pa182,Tomás Castillo,Guatemala,4.44
+pa183,Ana Cruz,San José,4.04
+pa184,Sofía Herrera,San José,4.54
+pa185,Sofía Méndez,Tegucigalpa,3.54
+pa186,María Méndez,Guatemala,4.12
+pa187,María Flores,Tegucigalpa,4.03
+pa188,Luis Reyes,Guatemala,3.7
+pa189,Camila Estrada,San José,4.33
+pa190,Javier Castillo,San José,4.77
+pa191,Pablo Flores,San Salvador,3.9
+pa192,Sofía López,Tegucigalpa,4.52
+pa193,Mateo Barrios,Guatemala,4.88
+pa194,Javier Flores,San José,4.71
+pa195,Carlos Reyes,Tegucigalpa,3.51
+pa196,Lucía Cruz,San Salvador,4.92
+pa197,Javier Pérez,Managua,4.75
+pa198,Valeria Méndez,San Salvador,3.77
+pa199,Jorge Méndez,San Salvador,4.09
+pa200,Lucía Barrios,Managua,3.92
+pa201,María López,Guatemala,5.0
+pa202,Carlos Estrada,Guatemala,4.13
+pa203,Paula Rivera,San José,4.54
+pa204,María Reyes,Guatemala,3.64
+pa205,Paula Morales,San José,3.51
+pa206,Mateo Morales,Tegucigalpa,4.95
+pa207,Isabel Cruz,San Salvador,3.88
+pa208,María Juárez,Tegucigalpa,3.78
+pa209,Tomás Méndez,Tegucigalpa,4.95
+pa210,Tomás Rivera,Guatemala,3.89
+pa211,Carlos Herrera,San José,4.05
+pa212,Isabel Méndez,San José,3.52
+pa213,Diego Flores,Guatemala,3.55
+pa214,Mateo Cruz,San José,4.38
+pa215,Javier Rivera,Managua,4.47
+pa216,Pablo Herrera,Managua,3.85
+pa217,Andrés Pérez,Managua,3.9
+pa218,Pablo Cruz,San Salvador,4.46
+pa219,Camila Herrera,Guatemala,4.46
+pa220,Luis Méndez,Tegucigalpa,4.05
+pa221,Paula Barrios,Managua,3.89
+pa222,Ana Rivera,Tegucigalpa,4.42
+pa223,Isabel Barrios,Tegucigalpa,3.63
+pa224,Mateo Barrios,Guatemala,4.39
+pa225,Camila Ortiz,Managua,4.12
+pa226,Valeria Ortiz,Guatemala,4.09
+pa227,Ana Herrera,San Salvador,4.18
+pa228,Javier García,San José,4.38
+pa229,Tomás Méndez,Managua,4.25
+pa230,Sofía Herrera,Managua,4.04
+pa231,Paula Herrera,Tegucigalpa,4.41
+pa232,Sofía Ortiz,San José,4.77
+pa233,Carlos Reyes,Guatemala,4.24
+pa234,Diego Méndez,Tegucigalpa,4.15
+pa235,Daniela Herrera,San Salvador,4.79
+pa236,Pablo Cruz,San José,4.89
+pa237,Pablo Cruz,San Salvador,4.99
+pa238,María López,Managua,3.73
+pa239,Ana Juárez,Guatemala,4.87
+pa240,Carlos López,Managua,4.09
+pa241,Valeria García,San Salvador,4.97
+pa242,Sofía Estrada,San José,4.67
+pa243,Andrés Cruz,Tegucigalpa,3.55
+pa244,Diego López,San José,3.62
+pa245,Lucía Ramírez,Managua,3.98
+pa246,Ana Barrios,Guatemala,3.89
+pa247,Luis Barrios,San José,4.93
+pa248,Jorge López,Tegucigalpa,3.9
+pa249,Paula Herrera,Tegucigalpa,3.69
+pa250,Ana Barrios,San José,3.71
+pa251,Paula Pérez,Guatemala,4.84
+pa252,Sofía Flores,San Salvador,3.6
+pa253,Sofía Estrada,Managua,4.56
+pa254,Carlos Rivera,San José,3.61
+pa255,Sofía Ortiz,San Salvador,4.23
+pa256,Paula Estrada,Managua,4.79
+pa257,Diego García,San José,3.5
+pa258,Andrés Flores,San Salvador,4.03
+pa259,Ana Flores,San José,4.13
+pa260,Ana Cruz,San Salvador,4.06
+pa261,Jorge Pérez,San Salvador,4.0
+pa262,Jorge Juárez,San José,4.36
+pa263,Javier Juárez,Managua,3.53
+pa264,Luis Flores,Managua,4.92
+pa265,Camila Flores,San Salvador,4.19
+pa266,Luis Morales,San José,4.04
+pa267,Lucía Castillo,San José,4.0
+pa268,Sofía Estrada,Guatemala,4.88
+pa269,Tomás Pérez,Managua,3.56
+pa270,María Pérez,Tegucigalpa,3.74
+pa271,María Flores,San Salvador,4.19
+pa272,Paula Ortiz,San José,4.98
+pa273,Camila Barrios,San Salvador,3.68
+pa274,Lucía Barrios,San Salvador,4.25
+pa275,Mateo Ramírez,Tegucigalpa,4.23
+pa276,Jorge Morales,Managua,4.84
+pa277,Diego Flores,San Salvador,4.07
+pa278,Mateo Ramírez,Tegucigalpa,4.23
+pa279,Carlos Cruz,Managua,4.15
+pa280,Andrés Ramírez,San Salvador,4.0
+pa281,María Méndez,Guatemala,3.78
+pa282,Valeria Cruz,San José,4.06
+pa283,María Ramírez,San José,3.88
+pa284,Valeria Reyes,Tegucigalpa,4.15
+pa285,Camila Herrera,Tegucigalpa,3.63
+pa286,Valeria López,San José,4.29
+pa287,Ana López,Tegucigalpa,4.8
+pa288,Javier Estrada,Managua,3.93
+pa289,Javier Ramírez,San Salvador,3.53
+pa290,Paula Ramírez,Guatemala,4.88
+pa291,Ana Méndez,Managua,4.13
+pa292,Andrés Juárez,Managua,3.66
+pa293,Camila Castillo,Managua,4.68
+pa294,Luis García,San José,3.96
+pa295,Pablo Herrera,San José,4.9
+pa296,Pablo Cruz,Tegucigalpa,4.98
+pa297,Lucía Reyes,San Salvador,3.66
+pa298,Camila Méndez,San Salvador,3.85
+pa299,Valeria Méndez,Tegucigalpa,4.9
+pa300,Andrés Herrera,Guatemala,4.82

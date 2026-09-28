@@ -1,302 +1,111 @@
-### Workshop: Implementación de un Clúster de Apache Cassandra y Monitoreo con Prometheus y Grafana
+# Taller de Apache Cassandra
 
-#### **Objetivo del Workshop:**
-1. Crear y administrar un clúster distribuido de Apache Cassandra.
-2. Aprender a expandir un clúster añadiendo nuevos nodos y centros de datos.
-3. Configurar y utilizar Prometheus y Grafana para monitorear el clúster en tiempo real.
-4. Crear una tabla para registrar clics en una página web.
-5. Implementar una tabla con un campo acumulador que sume automáticamente.
+Curso *Big Data y su Relación con Generative AI*, UFM. Clase 17.
 
----
+## Introducción
 
-### **Parte 1: Configuración Inicial del Primer Nodo**
+En el taller de Hadoop se contaron 75 000 ventas **en lote**, en minutos. En el de Kafka esas ventas
+llegaron **una por una**. Falta el último paso: que una aplicación pregunte "¿qué se vendió en
+Quetzaltenango el 1 de agosto?" y reciba la respuesta en milisegundos, aunque un servidor esté
+caído. Ese es el trabajo de Cassandra, la **capa de servicio** (*serving layer*) de la arquitectura
+Lambda. La usan Netflix, Apple y Discord.
 
-1. **Instalar Cassandra utilizando Docker**  
+Cassandra es una base de datos NoSQL de la familia **columnar** (*wide-column*): los datos se
+guardan agrupados por una llave y repartidos entre varios servidores, sin uno que mande sobre los
+demás.
+
+```mermaid
+flowchart LR
+    V["Ventas<br/>de las tiendas"] --> K["Kafka<br/>las recibe una por una"]
+    K --> B["Capa batch<br/>Hadoop · Hive<br/>recalcula todo en lote"]
+    K --> S["Capa de velocidad<br/>procesa al instante"]
+    B --> C[("Capa de servicio<br/>Cassandra<br/>responde en milisegundos")]
+    S --> C
+    C --> APP["Aplicación<br/>¿qué se vendió en<br/>Quetzaltenango hoy?"]
+    classDef hoy fill:#1f6feb,color:#fff,stroke:#1f6feb
+    class C hoy
+```
+
+En la arquitectura Lambda, Cassandra es donde la aplicación lee: guarda los resultados de las otras
+capas organizados para responder rápido.
+
+## Objetivo
+
+Responder, con evidencia generada en tu propio clúster:
+
+- ¿Por qué en Cassandra la tabla se diseña a partir de la consulta, y qué cuesta eso?
+- Con un nodo apagado, ¿qué operaciones siguen funcionando y cuáles no, y quién lo decide?
+- Cuando el nodo vuelve, ¿cómo se entera de lo que se escribió mientras estaba caído?
+
+## Qué vas a construir
+
+```
+  clúster UFM-G# · datacenter dc-g# · una misma red (VPN o red local)
+
+   laptop 1              laptop 2              laptop 3
+  ┌────────────┐        ┌────────────┐        ┌────────────┐
+  │ cassandra1 │ ◄────► │ cassandra2 │ ◄────► │ cassandra3 │
+  └────────────┘        └────────────┘        └────────────┘
+
+  keyspace ventas: cada dato en los 3 nodos
+  cqlsh (CQL) · nodetool (administración), cada quien desde su nodo
+```
+
+- **Nodo**: un servidor de Cassandra. Todos son iguales: no hay NameNode ni controller. El que recibe
+  una consulta la coordina.
+- **Keyspace**: el equivalente a una base de datos; define cuántas copias hay de cada dato.
+- **CQL**: el lenguaje de Cassandra. Se parece a SQL, pero no tiene JOIN.
+
+## Contenido
+
+| Parte | Modalidad | Tiempo estimado | Contenido |
+|---|---|---|---|
+| **[Parte 1 — Guiada](parte-1-guiada.md)** | En clase o por cuenta propia | 40 min – 1 h | Un nodo, un keyspace, una tabla, carga de las ventas y consultas. Todo el código se proporciona |
+| **[Parte 2 — Tarea](parte-2-tarea.md)** | Tarea, en grupo | 3–4 h | El clúster del grupo: un nodo en la laptop de cada integrante, copias, CQL, niveles de consistencia, caída y recuperación de nodos. Dos pasos son de investigación |
+| **[Mini-reto](ENTREGA.md#13-mini-reto-del-modelo-relacional-a-cassandra-25-)** | Tarea | 2.5–3 h | De un modelo relacional a un modelo de Cassandra, en el dominio de tu grupo |
+| **[Entrega](ENTREGA.md)** | Tarea | 1 h | Bitácora y Pull Request |
+| **Presentación** | Lunes 5-oct, en clase | 10 min por grupo | Modelo, demo en vivo y preguntas |
+| **Total** | | **7–9 h** | Sin contar la presentación |
+
+La Parte 1 no se califica y es prerrequisito de la Parte 2.
+
+**Dudas:** en clase.
+
+## Qué entregas y cuánto vale
+
+El detalle de cada punto está en [`ENTREGA.md`](ENTREGA.md).
+
+| Qué entregas | Quién | % |
+|---|---|---|
+| **Bitácora** | Individual | **50** |
+| · Evidencias de tu clúster (E1 a E6b) | | 15 |
+| · 3 preguntas respondidas con tus datos | | 10 |
+| · Mini-reto: modelo relacional → Cassandra | | 25 |
+| **Presentación del lunes 5 de octubre** | | **50** |
+| · Modelo de datos y justificación | Grupal | 20 |
+| · Demo en vivo: un nodo caído, `QUORUM` frente a `ALL` | Grupal | 20 |
+| · Respuesta a una pregunta del catedrático | Individual | 10 |
+| **Total** | | **100** |
+
+**Fecha de entrega: lunes 5 de octubre, 4:00 PM** (hora de Guatemala), por Pull Request. Hasta el
+viernes 9 de octubre a las 4:00 PM se acepta tarde, y vale la mitad; después, no se recibe.
+
+## Requisitos
+
+1. **Docker Desktop** (<https://www.docker.com/products/docker-desktop/>), con 2 GB de RAM para
+   Docker en *Settings → Resources*: cada laptop corre un nodo, de unos 1.3 GB. La memoria del nodo
+   se ajusta en `compose.yml` (`MAX_HEAP_SIZE`).
+2. **Una red común para las tres laptops del grupo** en la Parte 2: una VPN de malla o una misma red
+   local.
+3. **Fork del repo.** Un *fork* es tu copia del repo en tu cuenta de GitHub; desde ahí se abre el
+   Pull Request de la entrega. Haz **Fork** de
+   <https://github.com/jcarriolaa/Big-Data-Workshops-Cassandra> y clona **tu** fork:
+
    ```bash
-   docker network create cassandra_net
-   docker run --name cassandra1 --network cassandra_net -d \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="" \
-     -p 9042:9042 \
-     cassandra:4.0
+   git clone https://github.com/TU-USUARIO/Big-Data-Workshops-Cassandra.git
+   cd Big-Data-Workshops-Cassandra
    ```
 
-2. **Verificar el estado del nodo**
-   ```bash
-   docker exec -it cassandra1 nodetool status
-   ```
+Todos los comandos del taller se corren **desde la carpeta del repo**.
 
----
-
-### **Parte 2: Agregar el Segundo Nodo al Clúster**
-
-1. **Levantar el segundo nodo y conectarlo al clúster:**
-   ```bash
-   docker run --name cassandra2 --network cassandra_net -d \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="cassandra1" \
-     -p 9043:9042 \
-     cassandra:4.0
-   ```
-
-2. **Verificar que el segundo nodo se haya unido:**
-   ```bash
-   docker exec -it cassandra1 nodetool status
-   ```
-
----
-
-### **Parte 3: Agregar el Tercer Nodo**
-
-1. **Levantar el tercer nodo:**
-   ```bash
-   docker run --name cassandra3 --network cassandra_net -d \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="cassandra1" \
-     -p 9044:9042 \
-     cassandra:4.0
-   ```
-
-2. **Verificar que el tercer nodo se haya unido al clúster:**
-   ```bash
-   docker exec -it cassandra1 nodetool status
-   ```
-
----
-
-### **Parte 4: Crear un Segundo Data Center (2 nodos)**
-
-1. **Levantar el cuarto y quinto nodo en un nuevo Data Center:**
-   ```bash
-   docker run --name cassandra4 --network cassandra_net -d \
-     -e CASSANDRA_DC="datacenter2" \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="cassandra1" \
-     -p 9045:9042 \
-     cassandra:4.0
-
-   docker run --name cassandra5 --network cassandra_net -d \
-     -e CASSANDRA_DC="datacenter2" \
-     -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-     -e CASSANDRA_SEEDS="cassandra1" \
-     -p 9046:9042 \
-     cassandra:4.0
-   ```
-
----
-
-### **Parte 5: Configuración de Monitoreo con Prometheus y Grafana**
-
-1. **Levantar Prometheus:**
-   ```bash
-   docker run --name prometheus -d -p 9090:9090 \
-     -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml \
-     prom/prometheus
-   ```
-
-2. **Levantar Grafana:**
-   ```bash
-   docker run --name grafana -d -p 3000:3000 grafana/grafana
-   ```
-
-3. **Configurar un Dashboard en Grafana:**
-   - Acceder a `http://localhost:3000`.
-   - Configurar Prometheus como fuente de datos.
-
----
-
-### **Parte 6: Creación de Keyspace y Tablas**
-
-1. **Crear un keyspace con replicación de factor 2:**
-   ```sql
-   CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2};
-   ```
-
-2. **Usar el keyspace recién creado:**
-   ```sql
-   USE workshop;
-   ```
-
-3. **Crear una tabla para simular clics en una página web:**
-   ```sql
-   CREATE TABLE event_clicks (
-     user_id UUID,
-     page TEXT,
-     click_time TIMESTAMP,
-     PRIMARY KEY (user_id, click_time)
-   );
-   ```
-
-4. **Insertar 10 registros en event_clicks:**
-   ```sql
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'homepage', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'about', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'contact', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'services', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'blog', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'products', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'support', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'faq', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'testimonials', toTimestamp(now()));
-   INSERT INTO event_clicks (user_id, page, click_time) VALUES (uuid(), 'pricing', toTimestamp(now()));
-   ```
-
-5. **Crear una tabla con acumulador:**
-   ```sql
-   CREATE TABLE page_clicks_counter (
-     page TEXT PRIMARY KEY,
-     click_count COUNTER
-   );
-   ```
-
-6. **Insertar 10 registros acumulativos en page_clicks_counter:**
-   ```sql
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'homepage';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'about';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'contact';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'services';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'blog';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'products';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'support';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'faq';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'testimonials';
-   UPDATE page_clicks_counter SET click_count = click_count + 1 WHERE page = 'pricing';
-   ```
-
----
-
-### **Anexo: Comandos de Administración en cqlsh y nodetool**
-
-#### **Comandos en cqlsh**
-
-1. **Conectar a cqlsh**
-   ```bash
-   docker exec -it cassandra1 cqlsh
-   ```
-
-2. **Listar keyspaces disponibles**
-   ```sql
-   DESCRIBE KEYSPACES;
-   ```
-
-3. **Ver detalles de un keyspace específico**
-   ```sql
-   DESCRIBE KEYSPACE workshop;
-   ```
-
-4. **Listar todas las tablas dentro de un keyspace**
-   ```sql
-   USE workshop;
-   DESCRIBE TABLES;
-   ```
-
-5. **Ver la estructura de una tabla específica**
-   ```sql
-   DESCRIBE TABLE event_clicks;
-   ```
-
-6. **Consultar registros de una tabla**
-   ```sql
-   SELECT * FROM event_clicks LIMIT 10;
-   ```
-
-7. **Eliminar un registro de una tabla**
-   ```sql
-   DELETE FROM event_clicks WHERE user_id = <UUID> AND click_time = '<TIMESTAMP>';
-   ```
-
-8. **Eliminar todos los registros de una tabla sin eliminar la estructura**
-   ```sql
-   TRUNCATE event_clicks;
-   ```
-
----
-
-#### **Comandos de nodetool**
-
-1. **Ver el estado de los nodos del clúster**
-   ```bash
-   nodetool status
-   ```
-
-2. **Ver información detallada de un nodo**
-   ```bash
-   nodetool info
-   ```
-
-3. **Reparar inconsistencias de datos en un nodo**
-   ```bash
-   nodetool repair
-   ```
-
-4. **Forzar la compactación de datos en un nodo**
-   ```bash
-   nodetool compact
-   ```
-
-5. **Limpiar los datos de nodos removidos**
-   ```bash
-   nodetool cleanup
-   ```
-
-6. **Ver la distribución de datos en el clúster**
-   ```bash
-   nodetool ring
-   ```
-7. **Ver la capacidad de disco en el clúster**
-   ```bash
-   docker exec -it cassandra1 nodetool status | awk '/UN/ {sum += $3} END {print "Total Cluster Storage:", sum, "GB"}'
-   ```   
-
----
-
-#### **Agregar y quitar nodos en el clúster**
-
-1. **Agregar un nuevo nodo al clúster:**
-   - Editar el archivo de configuración `cassandra.yaml` en el nuevo nodo y establecer:
-     ```yaml
-     - seeds: "IP_DEL_NODO_EXISTENTE"
-     ```
-   - Iniciar el nuevo nodo con:
-     ```bash
-     docker run --name cassandra_new --network cassandra_net -d \
-       -e CASSANDRA_CLUSTER_NAME="WorkshopCluster" \
-       -e CASSANDRA_SEEDS="IP_DEL_NODO_EXISTENTE" \
-       -p 9047:9042 \
-       cassandra:4.0
-     ```
-   - Verificar que se haya agregado correctamente:
-     ```bash
-     nodetool status
-     ```
-
-2. **Quitar un nodo del clúster:**
-   - Identificar el nodo que se quiere quitar con `nodetool status`.
-   - Ejecutar el comando para deshabilitar el nodo:
-     ```bash
-     nodetool decommission
-     ```
-   - Si el nodo está fallando y no puede ser deshabilitado correctamente:
-     ```bash
-     nodetool removenode <ID_DEL_NODO>
-     ```
-
-3. **Reequilibrar el clúster después de quitar un nodo:**
-   ```bash
-   nodetool cleanup
-   ```
-
----
-
-#### **Siguientes pasos**
-En grupo, hacer la siguiente pruebas:
-1. Una persona levantar un Cluster con DC1
-2. Una Persona hacer mismo Cluster con DC2
-3. Una Persona hacer el Streaming hacia Cluster 
-4. Probar bajar un nodo de uno o dos datacenters y revisar que siga funcionando el flujo de streaming
-5. Leer documento de Data Modeling para explicar y presentar un Modelo de datos.
-
-
-
-
-
+Siguiente: **[Parte 1](parte-1-guiada.md)**.

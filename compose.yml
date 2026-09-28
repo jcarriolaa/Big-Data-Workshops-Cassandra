@@ -1,0 +1,47 @@
+# =============================================================================
+#  Taller Apache Cassandra 5.0 - Big Data, UFM 2026 S2
+#
+#  Parte 1: un solo nodo, con los nombres por defecto.
+#  Parte 2: queda solo el servicio del nodo que te toco en el cluster del grupo
+#  (cassandra1, cassandra2 o cassandra3), con el nombre de cluster y el
+#  datacenter de tu grupo.
+#
+#  Los datos viven en volumenes con nombre y sobreviven a "docker compose down".
+# =============================================================================
+name: taller-cassandra
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # CASSANDRA1 -> desde tu maquina es localhost:9042 (protocolo CQL)
+  #
+  # En Cassandra no hay NameNode ni controller: todos los nodos son iguales.
+  # Cualquiera recibe una consulta y la reparte (es el "coordinador").
+  # ---------------------------------------------------------------------------
+  cassandra1:
+    image: cassandra:5.0.8
+    container_name: cassandra1
+    hostname: cassandra1
+    ports:
+      - "9042:9042"
+    environment:
+      # Memoria de Java para este nodo. Las dos variables van juntas.
+      # MAX_HEAP_SIZE minimo: 256M.
+      MAX_HEAP_SIZE: 512M
+      HEAP_NEWSIZE: 128M
+    volumes:
+      - cassandra1-data:/var/lib/cassandra
+      # Los CSV del repo quedan dentro del contenedor en /data (solo lectura).
+      - ./data:/data:ro
+
+  # ---------------------------------------------------------------------------
+  # Parte 2, Paso 5: este servicio pasa a ser el de tu nodo.
+  # ---------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# Volumenes con nombre: aqui viven los datos de cada nodo.
+#   docker compose down      -> los conserva
+#   docker compose down -v   -> LOS BORRA (solo para empezar de cero)
+# -----------------------------------------------------------------------------
+volumes:
+  cassandra1-data:
