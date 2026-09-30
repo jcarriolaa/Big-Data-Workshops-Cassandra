@@ -1,0 +1,7 @@
+name: taller-cassandra
+services:
+  cassandra2:
+    image: cassandra:5.0.8
+    container_name: cassandra2
+    environment:
+      CASSANDRA_BROADCAST_ADDRESS: 100.64.0.2
