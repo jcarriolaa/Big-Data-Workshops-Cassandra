@@ -1,0 +1,50 @@
+# =============================================================================
+# Taller Apache Cassandra 5.0 - Big Data, UFM 2026 S2
+# Parte 2: un nodo por laptop. Esta laptop usa cassandra2 y no es la semilla.
+# =============================================================================
+name: taller-cassandra
+
+services:
+  # Servicio de esta laptop; cassandra1 se levanta primero en la laptop de Juan.
+  cassandra2:
+    # Imagen oficial usada tambien en la Parte 1.
+    image: cassandra:5.0.8
+    # Nombre del contenedor para docker exec y docker logs.
+    container_name: cassandra2
+    # Nombre interno del nodo.
+    hostname: cassandra2
+    # Publica CQL y la comunicacion entre nodos.
+    ports:
+      # Puerto local para cqlsh.
+      - "9042:9042"
+      # Puerto local para gossip y trafico entre nodos.
+      - "7000:7000"
+    # Configuracion comun del cluster y de este nodo.
+    environment:
+      # Limite de memoria de Java.
+      MAX_HEAP_SIZE: 512M
+      # Memoria de la generacion joven de Java.
+      HEAP_NEWSIZE: 128M
+      # Los tres nodos deben compartir este nombre.
+      CASSANDRA_CLUSTER_NAME: UFM-G1
+      # Los tres nodos deben usar este datacenter.
+      CASSANDRA_DC: dc-g1
+      # Rack de este nodo.
+      CASSANDRA_RACK: rack1
+      # Snitch que usa el datacenter y rack declarados.
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      # IP Tailscale de esta laptop; confirmar que siga activa antes de arrancar.
+      CASSANDRA_BROADCAST_ADDRESS: "100.127.202.84"
+      # IP Tailscale de Juan; verificar que aparezca como par antes de arrancar.
+      CASSANDRA_SEEDS: "100.78.221.21"
+    # Conserva los datos del nodo y monta los CSV en solo lectura.
+    volumes:
+      # Volumen propio de cassandra2.
+      - cassandra2-data:/var/lib/cassandra
+      # Datos del repo disponibles dentro del contenedor.
+      - ./data:/data:ro
+
+# Volumen con nombre exclusivo de este nodo.
+volumes:
+  # Sobrevive a docker compose down; down -v lo borra.
+  cassandra2-data:
